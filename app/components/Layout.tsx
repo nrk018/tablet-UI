@@ -6,15 +6,10 @@ import Link from 'next/link';
 import { useStore } from '../store/useStore';
 import PageTransition from './PageTransition';
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { ExpandableTabs } from '@/components/ui/expandable-tabs';
 import { Home, History, Package, Radio, Bot } from 'lucide-react';
 
-// Dynamically import NeuralNetworkBackground with no SSR
-const NeuralNetworkBackground = dynamic(() => import('./NeuralNetworkBackground'), {
-  ssr: false,
-  loading: () => <div className="fixed inset-0 -z-10 bg-black" />,
-});
+// Background effects removed for Vercel-style pure black UI
 
 function LiveClock() {
   const [time, setTime] = useState<string>('');
@@ -50,21 +45,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Neural Network Background */}
-      <NeuralNetworkBackground />
+    <div className="min-h-screen relative overflow-hidden bg-black text-white">
 
       {/* Header */}
-      <header className="relative z-10 backdrop-blur-md">
+      <header className="relative z-10 bg-black/80 border-b border-white/10">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <motion.h1 
-              className="text-sm font-semibold font-mono tracking-[0.3em] uppercase text-white/70"
+              className="text-sm font-medium tracking-wide text-white/70"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              NEXUS TERMINAL
+              Nexus
             </motion.h1>
             <div className="liquid-glass rounded-2xl p-[2px]">
               <div className="rounded-2xl bg-black/70">
@@ -95,17 +88,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Navigation replaced by ExpandableTabs in header */}
 
       {/* Main Content */}
-      <main className="relative z-10 min-h-[calc(100vh-140px)]">
+      <main className="relative z-10 min-h-[calc(100vh-140px)] bg-black">
         <PageTransition>
           {children}
         </PageTransition>
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 mt-auto py-6 text-center text-xs text-white/40">
+      <footer className="relative z-10 mt-auto py-6 text-center text-xs text-white/40 border-t border-white/10">
         <div className="container mx-auto px-6">
-          <p className="font-mono">SYSTEM STATUS: OPERATIONAL</p>
-          <p className="mt-1 text-white/30">Error 404: Morale not found</p>
+          <p>System status: Operational</p>
         </div>
       </footer>
     </div>
