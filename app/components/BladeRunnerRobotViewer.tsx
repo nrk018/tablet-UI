@@ -437,7 +437,7 @@ export default function BladeRunnerRobotViewer() {
         }}
         dpr={1}
         camera={{ position: [0, 0.5, 8], fov: 50 }}
-        className="bg-black"
+        className="bg-transparent"
       >
         <SceneContent />
         <OrbitControls

@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black text-white">
+    <div className="min-h-screen relative overflow-hidden text-white">
 
       {/* Header */}
       <header className="relative z-10 bg-black/80 border-b border-white/10">
@@ -88,7 +88,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Navigation replaced by ExpandableTabs in header */}
 
       {/* Main Content */}
-      <main className="relative z-10 min-h-[calc(100vh-140px)] bg-black">
+      <main className="relative z-10 min-h-[calc(100vh-140px)]">
         <PageTransition>
           {children}
         </PageTransition>
