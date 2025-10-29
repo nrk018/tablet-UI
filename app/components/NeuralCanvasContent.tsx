@@ -119,10 +119,13 @@ export default function NeuralCanvasContent() {
   }
   
   return (
-    <div className="bg-black absolute inset-0 -z-10 w-full h-full" aria-hidden>
+    <div className="absolute inset-0 -z-10 w-full h-full" aria-hidden
+      style={{
+        background: 'transparent'
+      }}>
       <Canvas
         camera={camera}
-        gl={{ antialias: false, alpha: false, powerPreference: 'high-performance' }}
+        gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
         dpr={[1, 1.5]}
         frameloop="demand"
         style={{ width: '100%', height: '100%' }}
@@ -130,7 +133,7 @@ export default function NeuralCanvasContent() {
         <Ticker />
         <ShaderPlane />
       </Canvas>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-saffron-900/10" />
     </div>
   );
 }

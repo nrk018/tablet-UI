@@ -7,6 +7,8 @@ import { useStore } from '../store/useStore';
 import PageTransition from './PageTransition';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { ExpandableTabs } from '@/components/ui/expandable-tabs';
+import { Home, History, Package, Radio, Bot } from 'lucide-react';
 
 // Dynamically import NeuralNetworkBackground with no SSR
 const NeuralNetworkBackground = dynamic(() => import('./NeuralNetworkBackground'), {
@@ -30,84 +32,67 @@ function LiveClock() {
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { notoriety } = useStore();
+  const tabs = [
+    { title: 'Home', icon: Home },
+    { type: 'separator' as const },
+    { title: 'Robot', icon: Bot },
+    { title: 'Inventory', icon: Package },
+    { title: 'History', icon: History },
+    { title: 'Comms', icon: Radio },
+  ];
 
   const navItems = [
     { path: '/robot', label: 'Robot Control' },
     { path: '/inventory', label: 'Inventory' },
     { path: '/history', label: 'Tournament' },
     { path: '/comms', label: 'Comms' },
+    { path: '/brief', label: 'UX Brief' },
   ];
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
       {/* Neural Network Background */}
       <NeuralNetworkBackground />
 
       {/* Header */}
-      <header className="relative z-10 border-b-2 border-orange-900/60 metal-panel">
+      <header className="relative z-10 backdrop-blur-md">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <motion.h1 
-                className="text-2xl font-semibold neon-green font-mono tracking-wider"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                DUST-ROSE | TERMINAL V2.0
-              </motion.h1>
+            <motion.h1 
+              className="text-sm font-semibold font-mono tracking-[0.3em] uppercase text-white/70"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              NEXUS TERMINAL
+            </motion.h1>
+            <div className="liquid-glass rounded-2xl p-[2px]">
+              <div className="rounded-2xl bg-black/70">
+                <ExpandableTabs
+                  tabs={tabs}
+                  className="glass-nav"
+                  activeColor="text-white"
+                  onChange={(i) => {
+                    if (i === null) return;
+                    const map = ['/', 'robot', 'inventory', 'history', 'comms'];
+                    const href = i === 0 ? '/' : `/${map[i]}`;
+                    window.location.href = href;
+                  }}
+                />
+              </div>
             </div>
             <div className="flex items-center gap-6 text-sm text-white/60">
               <div className="flex items-center gap-2">
                 <span className="text-white/40">TIME:</span>
                 <LiveClock />
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-white/40">DUST LVL:</span>
-                <span className={`font-semibold ${notoriety > 70 ? 'text-red-400' : 'text-amber-400'}`}>
-                  {notoriety > 70 ? 'CRITICAL' : 'MODERATE'}
-                </span>
-              </div>
+              <div className="w-8 h-8 rounded-full liquid-glass" />
             </div>
           </div>
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="relative z-10 border-b-2 border-orange-900/60 metal-panel">
-        <div className="container mx-auto px-6">
-          <div className="flex gap-1">
-            {navItems.map((item) => {
-              const isActive = pathname === item.path;
-              return (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={`
-                    relative px-6 py-3 text-sm font-medium font-mono uppercase tracking-wider transition-all duration-300
-                    ${isActive 
-                      ? 'neon-green' 
-                      : 'text-orange-700/80 hover:text-orange-600'}
-                  `}
-                >
-                  {item.label}
-                  {isActive && (
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 neon-green"
-                      style={{
-                        boxShadow: '0 0 10px rgba(34, 197, 94, 0.8), 0 0 20px rgba(34, 197, 94, 0.5)',
-                        background: 'rgba(34, 197, 94, 0.8)'
-                      }}
-                      layoutId="navbar-indicator"
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </nav>
+      {/* Navigation replaced by ExpandableTabs in header */}
 
       {/* Main Content */}
       <main className="relative z-10 min-h-[calc(100vh-140px)]">

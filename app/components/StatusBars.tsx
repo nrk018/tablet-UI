@@ -30,12 +30,12 @@ function StatusBar({ label, value, max = 100, color, criticalThreshold = 20, uni
   return (
     <div className="space-y-2">
       <div className="flex justify-between items-center">
-        <span className="text-sm font-medium text-white/60">
+        <span className="text-sm font-medium font-mono uppercase tracking-wider text-orange-700/70">
           {label}
         </span>
         <span className={`
           text-sm font-mono font-semibold
-          ${isCritical ? 'text-red-400' : isLow ? 'text-amber-400' : 'text-white'}
+          ${isCritical ? 'neon-red' : isLow ? 'neon-amber' : 'neon-green'}
         `}>
           {value.toFixed(0)}{unit}
         </span>
@@ -43,22 +43,27 @@ function StatusBar({ label, value, max = 100, color, criticalThreshold = 20, uni
       
       <div className="progress-bar">
         <motion.div
-          className={`progress-fill bg-gradient-to-r ${barColor}`}
+          className="progress-fill"
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
             boxShadow: isCritical
-              ? '0 0 20px rgba(239, 68, 68, 0.5)'
+              ? '0 0 15px rgba(239, 68, 68, 0.8), inset 0 0 10px rgba(239, 68, 68, 0.4)'
               : isLow
-              ? '0 0 20px rgba(245, 158, 11, 0.3)'
-              : '0 0 20px rgba(16, 185, 129, 0.3)',
+              ? '0 0 15px rgba(245, 158, 11, 0.6), inset 0 0 10px rgba(245, 158, 11, 0.3)'
+              : '0 0 15px rgba(34, 197, 94, 0.6), inset 0 0 10px rgba(34, 197, 94, 0.3)',
+            background: isCritical
+              ? 'linear-gradient(90deg, rgba(239, 68, 68, 0.9) 0%, rgba(239, 68, 68, 1) 50%, rgba(239, 68, 68, 0.9) 100%)'
+              : isLow
+              ? 'linear-gradient(90deg, rgba(245, 158, 11, 0.9) 0%, rgba(245, 158, 11, 1) 50%, rgba(245, 158, 11, 0.9) 100%)'
+              : 'linear-gradient(90deg, rgba(34, 197, 94, 0.9) 0%, rgba(34, 197, 94, 1) 50%, rgba(34, 197, 94, 0.9) 100%)',
           }}
         />
       </div>
       
       {isCritical && (
-        <p className="text-xs text-red-400 font-medium animate-pulse">
+        <p className="text-xs neon-red font-medium font-mono uppercase tracking-wider">
           CRITICAL LEVEL
         </p>
       )}

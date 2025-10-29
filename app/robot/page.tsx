@@ -24,17 +24,17 @@ export default function RobotPage() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <h1 className="text-3xl font-semibold text-white mb-1">ROBOT CONTROL CENTER</h1>
-            <p className="text-white/60 text-sm">JAIPUR SECTOR • DUST-ROSE 2077</p>
+            <h1 className="text-3xl font-semibold neon-green font-mono uppercase tracking-wider mb-1">ROBOT CONTROL CENTER</h1>
+            <p className="text-orange-700/80 text-sm font-mono">JAIPUR SECTOR • DUST-ROSE 2077</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="glass-panel px-4 py-2">
-              <div className="text-xs text-white/40 mb-1">UNIT ID</div>
-              <div className="font-mono text-sm font-semibold text-white">DR-K3LSO</div>
+            <div className="glass-panel px-4 py-2 holographic-overlay">
+              <div className="text-xs text-orange-700/70 mb-1 font-mono uppercase tracking-wider">UNIT ID</div>
+              <div className="font-mono text-sm font-semibold neon-green">DR-K3LSO</div>
             </div>
-            <div className={`glass-panel px-4 py-2 ${isDamaged ? 'status-critical' : 'status-operational'}`}>
-              <div className="text-xs text-white/40 mb-1">STATUS</div>
-              <div className="text-sm font-semibold">{isDamaged ? 'DAMAGED' : 'OPERATIONAL'}</div>
+            <div className={`glass-panel px-4 py-2 holographic-overlay ${isDamaged ? 'status-critical' : 'status-operational'}`}>
+              <div className="text-xs text-orange-700/70 mb-1 font-mono uppercase tracking-wider">STATUS</div>
+              <div className="text-sm font-semibold font-mono uppercase tracking-wider">{isDamaged ? 'DAMAGED' : 'OPERATIONAL'}</div>
             </div>
           </div>
         </motion.div>
@@ -51,9 +51,9 @@ export default function RobotPage() {
           >
             <div className="glass-panel p-6 h-full">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-white">3D MODEL VIEWER</h2>
-                <div className="flex items-center gap-2 text-xs text-white/40">
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <h2 className="text-lg font-semibold neon-green font-mono uppercase tracking-wider">3D MODEL VIEWER</h2>
+                <div className="flex items-center gap-2 text-xs text-orange-700/70 font-mono">
+                  <div className="w-2 h-2 rounded-full neon-green animate-pulse" style={{ boxShadow: '0 0 6px rgba(34, 197, 94, 0.8)' }} />
                   <span>LIVE</span>
                 </div>
               </div>
@@ -69,16 +69,16 @@ export default function RobotPage() {
           >
             <div className="glass-panel p-6 space-y-6">
               <div>
-                <h2 className="text-lg font-semibold text-white mb-4">UNIT STATUS</h2>
+                <h2 className="text-lg font-semibold neon-green font-mono uppercase tracking-wider mb-4">UNIT STATUS</h2>
                 <StatusBars />
               </div>
 
-              <div className="pt-4 border-t border-white/10">
-                <h3 className="text-sm font-semibold text-white/60 mb-3">COMPONENT HEALTH</h3>
+              <div className="pt-4 border-t border-orange-900/30">
+                <h3 className="text-sm font-semibold text-orange-700/70 mb-3 font-mono uppercase tracking-wider">COMPONENT HEALTH</h3>
                 <div className="space-y-2">
                   {components.map((comp) => (
                     <div key={comp.id} className="flex items-center justify-between text-sm">
-                      <span className="text-white/80">{comp.name}</span>
+                      <span className="text-orange-700/80 font-mono text-xs uppercase">{comp.name}</span>
                       <div className="flex items-center gap-2">
                         <div className="progress-bar w-20">
                           <div 
@@ -86,7 +86,7 @@ export default function RobotPage() {
                             style={{ width: `${comp.durability}%` }}
                           />
                         </div>
-                        <span className={`font-mono text-xs ${comp.critical ? 'text-red-400' : comp.damaged ? 'text-amber-400' : 'text-green-400'}`}>
+                        <span className={`font-mono text-xs font-semibold ${comp.critical ? 'neon-red' : comp.damaged ? 'neon-amber' : 'neon-green'}`}>
                           {comp.durability}%
                         </span>
                       </div>
@@ -115,10 +115,10 @@ export default function RobotPage() {
                 <span className="text-red-400 text-lg font-bold">!</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-red-400 mb-2">DAMAGE DETECTED</h3>
+                <h3 className="text-lg font-semibold neon-red mb-2 font-mono uppercase tracking-wider">DAMAGE DETECTED</h3>
                 <div className="space-y-1">
                   {damagedComponents.map((comp) => (
-                    <div key={comp.id} className="text-sm text-white/80">
+                    <div key={comp.id} className="text-sm text-orange-700/80 font-mono">
                       • {comp.name}: {comp.critical ? 'CRITICAL' : 'DAMAGED'} — {comp.durability}% durability
                     </div>
                   ))}
